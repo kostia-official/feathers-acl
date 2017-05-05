@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+  - '4'
+services:
+  - mongodb
+cache: yarn
+before_script:
+  - npm run lint

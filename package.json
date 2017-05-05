@@ -1,0 +1,69 @@
+{
+  "name": "feathers-acl",
+  "version": "0.5.0",
+  "description": "Declarative ACL for FeathersJS and Express apps",
+  "main": "dist/index.js",
+  "scripts": {
+    "lint": "eslint --ignore-path .gitignore ./",
+    "build": "babel -d dist/ src/",
+    "prepublish": "npm run build",
+    "ava": "ava -vs test/**/*.test.js",
+    "test": "nyc npm run ava && nyc report --reporter=lcov > coverage.lcov && codecov",
+    "test:dev": "nyc npm run ava && nyc report --reporter=html"
+  },
+  "dependencies": {
+    "http-errors": "1.6.1",
+    "jsonwebtoken": "7.4.0",
+    "lodash": "4.17.4",
+    "promdash": "1.2.0"
+  },
+  "devDependencies": {
+    "ava": "0.19.1",
+    "babel-cli": "6.22.2",
+    "babel-eslint": "7.2.3",
+    "babel-plugin-transform-runtime": "6.23.0",
+    "babel-preset-es2015": "6.22.0",
+    "babel-preset-stage-0": "6.24.1",
+    "babel-register": "6.22.0",
+    "body-parser": "1.17.1",
+    "codecov": "2.1.0",
+    "eslint": "3.19.0",
+    "eslint-config-airbnb-base": "11.1.3",
+    "eslint-plugin-import": "2.2.0",
+    "feathers": "2.1.1",
+    "feathers-hooks": "2.0.0",
+    "feathers-mongoose": "5.0.3",
+    "feathers-rest": "1.7.2",
+    "mongoose": "4.9.4",
+    "nyc": "10.2.0",
+    "supertest": "3.0.0"
+  },
+  "ava": {
+    "require": "babel-register",
+    "babel": {
+      "presets": [
+        "es2015",
+        "stage-0"
+      ],
+      "plugins": [
+        "transform-runtime"
+      ]
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kozzztya/feathers-acl.git"
+  },
+  "keywords": [
+    "express",
+    "feathers",
+    "acl",
+    "permissions"
+  ],
+  "author": "kozzztya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kozzztya/feathers-acl/issues"
+  },
+  "homepage": "https://github.com/kozzztya/feathers-acl#readme"
+}
