@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/kozzztya/feathers-acl.svg?branch=master)](https://travis-ci.org/kozzztya/feathers-acl)
-[![codecov](https://codecov.io/gh/kozzztya/feathers-acl/branch/master/graph/badge.svg)](https://codecov.io/gh/kozzztya/feathers-acl)
+[![Coverage Status](https://coveralls.io/repos/github/kozzztya/feathers-acl/badge.svg?branch=ci)](https://coveralls.io/github/kozzztya/feathers-acl?branch=ci)
 
 # feathers-acl
 
