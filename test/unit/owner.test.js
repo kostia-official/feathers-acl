@@ -1,14 +1,13 @@
 const test = require('ava');
 const _ = require('lodash');
 const mongoose = require('mongoose');
+const ownerRule = require('../../src/rule-checker/rules/owner');
 
 mongoose.Promise = Promise;
 
 const db = mongoose.createConnection('mongodb://localhost:27017/acl');
 const schema = new mongoose.Schema({ userId: Number, usersIds: [Number] });
 const Post = db.model('posts', schema);
-
-const ownerRule = require('../../src/rule-checker/rules/owner');
 const fn = ownerRule(db);
 
 test('should be resolved for owner', async (t) => {
