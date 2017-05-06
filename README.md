@@ -20,6 +20,7 @@ const app = feathers();
 app.configure(rest())
   .configure(services)
   .configure(acl(aclConfig, {
+    denyNotAllowed: true,   // deny all routes without "allow" rules
     mongooseConnection: db, // need for owner rule
     jwt: {
       secret: 'blab',

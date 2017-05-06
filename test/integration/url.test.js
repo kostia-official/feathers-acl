@@ -2,6 +2,10 @@ const { test, App } = require('../env');
 
 const config = [
   {
+    url: '/posts', method: 'POST',
+    allow: { roles: ['client'] }
+  },
+  {
     url: '/posts', method: 'GET',
     allow: { roles: ['admin'] }
   },
@@ -39,12 +43,4 @@ test('should be denied to read one post for admin', async (t) => {
   const { error } = await app.get('/posts/' + post.body._id);
 
   t.truthy(error);
-});
-
-test('should be allowed to delete post if no acl set', async (t) => {
-  const app = App(config, {}, {});
-  const post = await app.post('/posts');
-  const { error } = await app.delete('/posts/' + post.body._id);
-
-  t.falsy(error);
 });

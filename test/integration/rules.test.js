@@ -1,6 +1,9 @@
 const { test, App } = require('../env');
 
 const config = [{
+  url: '/posts', method: 'POST',
+  allow: { roles: ['admin'] }
+}, {
   url: '/posts/:id', method: 'GET',
   allow: {
     owner: { where: { _id: '{params.id}' }, model: 'posts', ownerField: 'userId' },
