@@ -5,8 +5,8 @@ const denyNotAllowed = require('./deny-not-allowed');
 
 module.exports = (configs, options = {}) => function () {
   const app = this;
-
   const check = ruleChecker(options);
+
   if (options.jwt) app.use(jwtDecode(options.jwt));
 
   _.forEach(configs, ({ url, method, allow }) => {

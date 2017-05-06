@@ -6,7 +6,7 @@ const config = [{
 }, {
   url: '/posts/:id', method: 'GET',
   allow: {
-    owner: { where: { _id: '{params.id}' }, model: 'posts', ownerField: 'userId' },
+    owner: { where: { _id: '{params.id}' }, ownerField: 'userId' },
     roles: ['admin']
   }
 }];
