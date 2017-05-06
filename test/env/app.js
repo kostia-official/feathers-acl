@@ -8,7 +8,7 @@ const lib = require('../../src');
 const db = require('./db');
 const jwt = require('./jwt');
 
-module.exports = (config, customRules, payload) => {
+module.exports = (config, options, payload) => {
   const app = feathers();
 
   app.use(bodyParser.json());
@@ -16,12 +16,14 @@ module.exports = (config, customRules, payload) => {
   app.configure(rest());
   app.configure(hooks());
   app.use((req, res, next) => {
+    if (payload) req.payload = payload;
     if (payload) req.headers.authorization = jwt.sign(payload);
     next();
   });
-  app.configure(lib(config, {
-    customRules, mongooseConnection: db, jwt: { secret: jwt.secret }
-  }));
+  app.configure(lib(config, options &&
+    Object.assign({
+      mongooseConnection: db, jwt: { secret: jwt.secret }, denyNotAllowed: true
+    }, options)));
   app.service('/posts', new Service({
     Model: db.model('posts')
   }));
