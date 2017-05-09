@@ -8,8 +8,9 @@ module.exports = (mongooseConnection) => (payload, allow, req) => {
     if (!mongooseConnection) return reject(httpError(500, 'No mongoose connection.'));
 
     const userId = _.get(payload, 'userId');
-    const model = _.get(allow, 'owner.model');
-    const where = buildWhere(_.get(allow, 'owner.where'), req);
+    const model = _.get(allow, 'owner.model') || _(req.url).split('/').get('[1]');
+    const whereTemplate = _.get(allow, 'owner.where') || { _id: '{params.id}' };
+    const where = buildWhere(whereTemplate, req);
     const ownerField = _.get(allow, 'owner.ownerField');
 
     if (!userId) return reject(httpError(403, 'No user id.'));

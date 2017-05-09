@@ -80,11 +80,17 @@ app.configure(acl(config, { mongooseConnection: db }));
 Then in config declare:
 
 ```
-allow: { owner: { where: { _id: '{params.id}', model: 'posts', ownerField: 'author' } } }
+allow: {
+  owner: {
+    where: { _id: '{params.id}' },
+    model: 'posts',
+    ownerField: 'author'
+  }
+}
 ```
 
-`where` - how to find needed document. Set in {} path to needed values in `req` object.
-`model` - mongoose model.
+`where` - how to find needed document. Set in {} path to needed values in `req` object. Default is `{ _id: '{params.id}' }`.
+`model` - mongoose model. By default can be got from route url. For example `posts` on `/posts`.
 `ownerField` - where you store user id?
 
 It gets user's id from `req.payload.userId`.
