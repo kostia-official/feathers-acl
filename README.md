@@ -20,12 +20,13 @@ const app = feathers();
 app.configure(rest())
   .configure(services)
   .configure(acl(aclConfig, {
-    denyNotAllowed: true,   // deny all routes without "allow" rules
-    mongooseConnection: db, // need for owner rule
+    denyNotAllowed: true,             // deny all routes without "allow" rules
+    adminRoles: ['admin'],            // allow all listed in config routes for this role
+    baseUrl: 'http://localhost:8080', // need for owner rule
     jwt: {
       secret: 'blab',
-      header: 'x-auth'      // Default is 'Authorization'
-      options: {}           // options for 'jsonwebtoken' lib
+      header: 'x-auth'                // Default is 'Authorization'
+      options: {}                     // options for 'jsonwebtoken' lib
     }
   }));
 
@@ -71,7 +72,7 @@ It gets user's role from `req.payload.roles` array.
 
 ### Owner
 
-Give access only for MongoDB document creator. First of all set:
+Give access only for owner. Makes request to GET route and checks `ownerField`. First of all set:
 
 ```
 app.configure(acl(config, { mongooseConnection: db }));
@@ -81,18 +82,11 @@ Then in config declare:
 
 ```
 allow: {
-  owner: {
-    where: { _id: '{params.id}' },
-    model: 'posts',
-    ownerField: 'author'
-  }
+  owner: { ownerField: 'author' }
 }
 ```
 
-`where` - how to find needed document. Set in {} path to needed values in `req` object. Default is `{ _id: '{params.id}' }`.
-`model` - mongoose model. By default can be got from route url. For example `posts` on `/posts`.
-`ownerField` - where you store user id?
-
+`ownerField` - where do you store user id?
 It gets user's id from `req.payload.userId`.
 
 ### Authenticated
