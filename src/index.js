@@ -3,8 +3,7 @@ const ruleChecker = require('./rule-checker');
 const jwtDecode = require('./jwt-decode');
 const denyNotAllowed = require('./deny-not-allowed');
 
-module.exports = (configs, options = {}) => function () {
-  const app = this;
+module.exports = (configs, options = {}) => function (app = this) {
   const check = ruleChecker(options);
 
   if (options.jwt) app.use(jwtDecode(options.jwt));
