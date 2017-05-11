@@ -7,9 +7,11 @@ const supertest = require('supertest');
 const lib = require('../../src');
 const db = require('./db');
 const jwt = require('./jwt');
+const randomPort = require('get-port-sync');
 
 module.exports = (config, options, payload) => {
   const app = feathers();
+  const port = randomPort();
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,11 +24,11 @@ module.exports = (config, options, payload) => {
   });
   app.configure(lib(config, options &&
     Object.assign({
-      mongooseConnection: db, jwt: { secret: jwt.secret }, denyNotAllowed: true
+      jwt: { secret: jwt.secret }, denyNotAllowed: true, baseUrl: 'http://localhost:' + port
     }, options)));
   app.service('/posts', new Service({
     Model: db.model('posts')
   }));
 
-  return supertest(app);
+  return supertest(app.listen(port));
 };

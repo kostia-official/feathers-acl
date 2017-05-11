@@ -1,27 +1,28 @@
 const _ = require('lodash');
 const httpError = require('http-errors');
-const buildWhere = require('./build-where');
+const fetch = require('node-fetch');
 
-module.exports = (mongooseConnection) => (payload, allow, req) => {
+module.exports = (baseUrl) => (payload, allow, req) => {
   return new Promise((resolve, reject) => {
     if (!allow.owner) return resolve(true);
-    if (!mongooseConnection) return reject(httpError(500, 'No mongoose connection.'));
+    if (_.has(req, 'headers[x-owner-rule]')) return resolve(true);
 
     const userId = _.get(payload, 'userId');
-    const model = _.get(allow, 'owner.model') || _(req.url).split('/').get('[1]');
-    const whereTemplate = _.get(allow, 'owner.where') || { _id: '{params.id}' };
-    const where = buildWhere(whereTemplate, req);
+    const url = _.get(allow, 'owner.url') || req.url;
     const ownerField = _.get(allow, 'owner.ownerField');
 
     if (!userId) return reject(httpError(403, 'No user id.'));
 
-    const Model = mongooseConnection.model(model);
-    Model.findOne(where).then((doc) => {
-      if (!doc) return reject(httpError(500, 'Wrong where ' + JSON.stringify(where)));
-      if (!isOwner(doc[ownerField], userId)) return reject(httpError(403, 'No permissions.'));
+    fetch(baseUrl + url, {
+      method: 'GET', headers: Object.assign({ 'x-owner-rule': 'true' }, req.headers)
+    })
+      .then((res) => res.json())
+      .then((doc) => {
+        if (!isOwner(doc[ownerField], userId)) return reject(httpError(403, 'No permissions.'));
 
-      resolve(true);
-    }).catch(reject);
+        resolve(true);
+      })
+      .catch(reject);
   });
 };
 
