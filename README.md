@@ -1,8 +1,7 @@
-[![Build Status](https://travis-ci.org/kozzztya/feathers-acl.svg?branch=master)](https://travis-ci.org/kozzztya/feathers-acl)
-[![Coverage Status](https://coveralls.io/repos/github/kozzztya/feathers-acl/badge.svg?branch=ci)](https://coveralls.io/github/kozzztya/feathers-acl?branch=ci)
-
 # feathers-acl
 
+[![Build Status](https://travis-ci.org/kozzztya/feathers-acl.svg?branch=master)](https://travis-ci.org/kozzztya/feathers-acl)
+[![Coverage Status](https://coveralls.io/repos/github/kozzztya/feathers-acl/badge.svg?branch=ci)](https://coveralls.io/github/kozzztya/feathers-acl?branch=ci)
 [![Greenkeeper badge](https://badges.greenkeeper.io/kozzztya/feathers-acl.svg)](https://greenkeeper.io/)
 
 Declarative ACL for Feathers and Express apps.
