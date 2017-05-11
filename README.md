@@ -3,6 +3,8 @@
 
 # feathers-acl
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kozzztya/feathers-acl.svg)](https://greenkeeper.io/)
+
 Declarative ACL for Feathers and Express apps.
 
 ## Configuration
