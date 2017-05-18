@@ -26,9 +26,8 @@ module.exports = (config, options, payload) => {
     Object.assign({
       jwt: { secret: jwt.secret }, denyNotAllowed: true, baseUrl: 'http://localhost:' + port
     }, options)));
-  app.service('/posts', new Service({
-    Model: db.model('posts')
-  }));
+  app.service('/users', new Service({ Model: db.model('users') }));
+  app.service('/posts', new Service({ Model: db.model('posts') }));
 
   return supertest(app.listen(port));
 };

@@ -4,10 +4,11 @@
   "description": "Declarative ACL for FeathersJS and Express apps",
   "main": "dist/index.js",
   "scripts": {
+    "np": "np $1",
     "lint": "eslint --ignore-path .gitignore ./",
     "prebuild": "rm -rf ./dist",
     "build": "babel -d dist/ src/",
-    "prepublish": "npm run build",
+    "prenp": "npm run build",
     "ava": "ava -vs test/**/*.test.js",
     "test": "nyc npm run ava && nyc report --reporter=text-lcov | coveralls",
     "test:dev": "nyc npm run ava && nyc report --reporter=html"
@@ -38,6 +39,7 @@
     "feathers-rest": "1.7.2",
     "get-port-sync": "1.0.0",
     "mongoose": "4.9.10",
+    "np": "2.14.1",
     "nyc": "10.3.2",
     "random-port": "0.1.0",
     "supertest": "3.0.0"

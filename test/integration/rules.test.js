@@ -9,6 +9,8 @@ const config = [{
     owner: { where: { _id: '{params.id}' }, ownerField: 'userId' },
     roles: ['admin', 'client']
   }
+}, {
+  url: '/posts/:id', method: 'DELETE', allow: false
 }];
 const userId = '5901af327b35960019ee8b2e';
 
@@ -44,4 +46,13 @@ test('should be denied because of admin role', async (t) => {
   const { error } = await app.get('/posts/' + post.body._id);
 
   t.falsy(error);
+});
+
+test('should be denied if allow false', async (t) => {
+  const app = App(config, { adminRoles: ['admin'] }, { roles: ['admin'] });
+  const post = await app.post('/posts').send();
+  const { error } = await app.delete('/posts/' + post.body._id);
+
+  t.is(error.text, 'Route is not allowed.');
+  t.is(error.status, 403);
 });

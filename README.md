@@ -40,19 +40,19 @@ module.exports = app;
 [
   {
     url: '/posts', method: 'GET',
-    allow: { authenticated: false }
+    allow: { authenticated: false } // allow blog reading for everyone
   }, {
     url: '/posts', method: 'POST',
-    allow: { authenticated: true, roles: ['client', 'admin'] }
+    allow: { roles: ['author'] }    // allow posts creating only for authors
   }, {
     url: '/posts/:id', method: 'PATCH',
-    allow: {
-      authenticated: true, roles: ['admin'],
-      owner: { where: { _id: '{params.id}', model: 'posts', ownerField: 'author' } }
-    }
+    allow: { roles: ['author'], owner: { ownerField: 'authorId' } } // author can edit only own posts
   }, {
     url: '/posts', method: 'DELETE',
-    allow: { roles: [] } // deny access
+    allow: false // deny posts removing
+  }, {
+    url: '/users/:id', method: 'PATCH',
+    allow: { self: true } // user can edit only own profile
   }
 ]
 ```
@@ -76,19 +76,31 @@ It gets user's role from `req.payload.roles` array.
 Give access only for owner. Makes request to GET route and checks `ownerField`. First of all set:
 
 ```
-app.configure(acl(config, { mongooseConnection: db }));
+app.configure(acl(config, { baseUrl: 'http://0.0.0.0:' + process.env.PORT }));
 ```
 
 Then in config declare:
 
 ```
 allow: {
-  owner: { ownerField: 'author' }
+  owner: { ownerField: 'authorId' }
 }
 ```
 
 `ownerField` - where do you store user id?
 It gets user's id from `req.payload.userId`.
+
+### Self
+
+Give access only for own content. Compare user id and id from request.
+
+```
+allow: {
+  self: { userIdPath: 'params.id' }
+}
+```
+
+`userIdPath` - select path to value in middleware `req` object.
 
 ### Authenticated
 
