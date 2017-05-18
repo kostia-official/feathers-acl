@@ -4,7 +4,7 @@
   "description": "Declarative ACL for FeathersJS and Express apps",
   "main": "dist/index.js",
   "scripts": {
-    "np": "np $1",
+    "np": "np --any-branch",
     "lint": "eslint --ignore-path .gitignore ./",
     "prebuild": "rm -rf ./dist",
     "build": "babel -d dist/ src/",
