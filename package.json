@@ -16,7 +16,7 @@
     "http-errors": "1.6.1",
     "jsonwebtoken": "7.4.1",
     "lodash": "4.17.4",
-    "node-fetch": "1.6.3",
+    "node-fetch": "1.7.0",
     "promdash": "1.2.0"
   },
   "devDependencies": {
