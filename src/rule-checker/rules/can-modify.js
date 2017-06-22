@@ -4,13 +4,24 @@ const hasElement = require('../has-elements');
 
 module.exports = () => (playload, allow, req) => {
   return new Promise((resolve, reject) => {
+    const canUpdate = _.get(allow, 'canUpdate');
+    if (!canUpdate) return resolve(true);
+
+    const allowRoles = _.get(allow, 'canUpdate.roles');
+    if (!allowRoles) return reject(httpError(403, 'Roles is empty'));
+    if (allowRoles.length === 0) return reject(httpError(403, 'Roles is empty'));
+
+    const allowFields = _.get(allow, 'canUpdate.fields');
+    if (!allowFields) return reject(httpError(403, 'Fields is empty'));
+    if (allowFields.length === 0) return reject(httpError(403, 'Fields is empty'));
+
     const roles = hasElement(
-      _.get(allow, 'canUpdate.roles'),
+      allowRoles,
       _.get(playload, 'roles')
     );
 
     const fields = hasElement(
-      _.get(allow, 'canUpdate.fields'),
+      allowFields,
       Object.keys(req.body)
     );
 
