@@ -3,7 +3,7 @@ const { test, App } = require('../env');
 const config = [{
   url: '/posts', method: 'POST',
   allow: {
-    canUpdate: { roles: ['client'], fields: ['roles', 'verified'] }
+    canUpdate: { roles: ['admin'], fields: ['roles', 'verified'] }
   }
 }];
 
@@ -13,8 +13,14 @@ const obj = {
   active: true
 };
 
-test('shoud be resolved', async (t) => {
+test('should be resolved', async (t) => {
   const app = App(config, {}, { roles: ['admin', 'client'] });
   const { error } = await app.post('/posts').send(obj);
   t.falsy(error);
+});
+
+test('should be error', async (t) => {
+  const app = App(config, {}, { roles: ['client'] });
+  const { error } = await app.post('/posts').send(obj);
+  t.is(error.status, 403);
 });
