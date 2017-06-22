@@ -19,6 +19,12 @@ test('should be resolved', async (t) => {
   t.falsy(error);
 });
 
+test('should be allowed for client to modify proper field', async (t) => {
+  const app = App(config, {}, { roles: ['client'] });
+  const { error } = await app.post('/posts').send({ active: false });
+  t.falsy(error);
+});
+
 test('should be error', async (t) => {
   const app = App(config, {}, { roles: ['client'] });
   const { error } = await app.post('/posts').send(obj);
@@ -53,8 +59,7 @@ test('empty fields should be error', async (t) => {
 
 const emptyConfig = [{
   url: '/posts', method: 'POST',
-  allow: {
-  }
+  allow: {}
 }];
 
 test('don\'t have modify', async (t) => {
