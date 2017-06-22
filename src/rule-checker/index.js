@@ -1,7 +1,7 @@
 const promdash = require('promdash').default;
 const rolesRule = require('./rules/roles');
 const ownerRule = require('./rules/owner');
-const canModifyRule = require('./rules/can-modify');
+const canModifyRule = require('./rules/modify');
 const authenticatedRule = require('./rules/authenticated');
 const hasRole = require('./has-role');
 

@@ -3,7 +3,7 @@ const { test, App } = require('../env');
 const config = [{
   url: '/posts', method: 'POST',
   allow: {
-    canUpdate: { roles: ['admin'], fields: ['roles', 'verified'] }
+    modify: { roles: ['admin'], fields: ['roles', 'verified'] }
   }
 }];
 
@@ -28,7 +28,7 @@ test('should be error', async (t) => {
 const emptyRolesConfig = [{
   url: '/posts', method: 'POST',
   allow: {
-    canUpdate: { roles: [], fields: ['roles', 'verified'] }
+    modify: { roles: [], fields: ['roles', 'verified'] }
   }
 }];
 
@@ -41,7 +41,7 @@ test('empty role should be error', async (t) => {
 const emptyFieldsConfig = [{
   url: '/posts', method: 'POST',
   allow: {
-    canUpdate: { roles: ['admin'], fields: [] }
+    modify: { roles: ['admin'], fields: [] }
   }
 }];
 
@@ -57,7 +57,7 @@ const emptyConfig = [{
   }
 }];
 
-test('don\'t have canUpdate', async (t) => {
+test('don\'t have modify', async (t) => {
   const app = App(emptyConfig, {}, { roles: ['admin'] });
   const { error } = await app.post('/posts').send(obj);
   t.false(error);
