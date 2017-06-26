@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const httpError = require('http-errors');
-const fetch = require('node-fetch');
+const request = require('superagent');
 
 module.exports = (baseUrl) => (payload, allow, req) => {
   return new Promise((resolve, reject) => {
@@ -13,16 +13,14 @@ module.exports = (baseUrl) => (payload, allow, req) => {
 
     if (!userId) return reject(httpError(403, 'No user id.'));
 
-    fetch(baseUrl + url, {
-      method: 'GET', headers: Object.assign({ 'x-owner-rule': 'true' }, req.headers)
-    })
-      .then((res) => res.json())
-      .then((doc) => {
-        if (!isOwner(doc[ownerField], userId)) return reject(httpError(403, 'No permissions.'));
+    request.get(baseUrl + url)
+      .set(Object.assign({ 'x-owner-rule': 'true' }, req.headers))
+      .end((err, { body }) => {
+        if (err) return reject(err);
+        if (!isOwner(body[ownerField], userId)) return reject(httpError(403, 'No permissions.'));
 
         resolve(true);
-      })
-      .catch(reject);
+      });
   });
 };
 
