@@ -1,6 +1,6 @@
 {
   "name": "feathers-acl",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Declarative ACL for FeathersJS and Express apps",
   "main": "dist/index.js",
   "scripts": {
