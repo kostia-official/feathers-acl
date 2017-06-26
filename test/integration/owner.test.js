@@ -7,6 +7,9 @@ const config = [{
 }, {
   url: '/posts/:id', method: 'GET',
   allow: { owner: { ownerField: 'userId' } }
+}, {
+  url: '/posts/:id', method: 'PATCH',
+  allow: { owner: { ownerField: 'userId' } }
 }];
 
 test('should be no error for owner', async (t) => {
@@ -39,6 +42,12 @@ test('should be rejected for not owner', async (t) => {
 
   t.is(error.status, 403);
   t.is(error.text, 'No permissions.');
+});
+
+test('should be rejected editing not fount record', async (t) => {
+  const app = App(config, {}, { userId: '2' });
+  const { error } = await app.patch('/posts/59005e08119ddc00196d0180');
+  t.is(error.status, 404);
 });
 
 test('should be rejected if no userId field', async (t) => {

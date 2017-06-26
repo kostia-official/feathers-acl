@@ -1,6 +1,6 @@
 {
   "name": "feathers-acl",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Declarative ACL for FeathersJS and Express apps",
   "main": "dist/index.js",
   "scripts": {
@@ -16,8 +16,8 @@
     "http-errors": "1.6.1",
     "jsonwebtoken": "7.4.1",
     "lodash": "4.17.4",
-    "node-fetch": "1.7.0",
-    "promdash": "1.2.0"
+    "promdash": "1.2.0",
+    "superagent": "3.5.2"
   },
   "devDependencies": {
     "ava": "0.19.1",

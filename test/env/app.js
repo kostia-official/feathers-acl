@@ -30,5 +30,10 @@ module.exports = (config, options, payload) => {
     Model: db.model('posts')
   }));
 
+  // eslint-disable-next-line no-unused-vars
+  app.use((err, req, res, next) => {
+    res.status(err.status || err.code).send(err.message);
+  });
+
   return supertest(app.listen(port));
 };
