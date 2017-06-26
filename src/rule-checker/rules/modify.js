@@ -8,11 +8,11 @@ module.exports = () => (playload, allow, req) => {
     if (!modify) return resolve(true);
 
     const allowRoles = _.get(allow, 'modify.roles');
-    if (!allowRoles) return reject(httpError(403, 'Roles is empty'));
+    if (!allowRoles) return reject(httpError(403, '"roles" array is empty for "modify" rule'));
     if (allowRoles.length === 0) return reject(httpError(403, 'Roles is empty'));
 
     const allowFields = _.get(allow, 'modify.fields');
-    if (!allowFields) return reject(httpError(403, 'Fields is empty'));
+    if (!allowFields) return reject(httpError(403, '"fields" array is empty for "modify" rule'));
     if (allowFields.length === 0) return reject(httpError(403, 'Fields is empty'));
 
     const roles = hasElement(
@@ -29,7 +29,7 @@ module.exports = () => (playload, allow, req) => {
       reject(
         httpError(
           403,
-          'User can not modified fields [' +
+          'User can not modify fields [' +
           _.get(allow, 'modify.fields').join(', ') +
           ']')
       );
