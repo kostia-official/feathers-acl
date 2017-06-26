@@ -13,7 +13,7 @@ const obj = {
   active: true
 };
 
-test('should be resolved', async (t) => {
+test('should be allowed for admin to modify proper field', async (t) => {
   const app = App(config, {}, { roles: ['admin', 'client'] });
   const { error } = await app.post('/posts').send(obj);
   t.falsy(error);

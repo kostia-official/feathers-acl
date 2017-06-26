@@ -25,10 +25,6 @@ module.exports = () => (playload, allow, req) => {
       Object.keys(req.body)
     );
 
-    if (roles === true && fields === true) {
-      resolve(true);
-    }
-
     if (roles === false && fields === true) {
       reject(
         httpError(
@@ -38,5 +34,7 @@ module.exports = () => (playload, allow, req) => {
           ']')
       );
     }
+
+    resolve(true);
   });
 };
