@@ -13,7 +13,7 @@
     "test:dev": "nyc npm run ava && nyc report --reporter=html"
   },
   "dependencies": {
-    "http-errors": "1.6.1",
+    "http-errors": "1.6.2",
     "jsonwebtoken": "7.4.1",
     "lodash": "4.17.4",
     "promdash": "1.2.0",
