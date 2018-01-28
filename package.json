@@ -37,7 +37,7 @@
     "feathers-mongoose": "5.1.0",
     "feathers-rest": "1.7.2",
     "get-port-sync": "1.0.0",
-    "mongoose": "4.10.1",
+    "mongoose": "5.0.2",
     "nyc": "10.3.2",
     "random-port": "0.1.0",
     "supertest": "3.0.0"
