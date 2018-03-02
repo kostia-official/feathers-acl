@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "http-errors": "1.6.2",
-    "jsonwebtoken": "7.4.1",
+    "jsonwebtoken": "8.2.0",
     "lodash": "4.17.5",
     "promdash": "1.2.0",
     "superagent": "3.6.2"
