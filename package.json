@@ -29,7 +29,7 @@
     "babel-register": "6.24.1",
     "body-parser": "1.17.2",
     "coveralls": "2.13.1",
-    "eslint": "4.1.0",
+    "eslint": "5.0.0",
     "eslint-config-airbnb-base": "11.2.0",
     "eslint-plugin-import": "2.3.0",
     "feathers": "2.1.2",
